@@ -620,5 +620,5 @@ variable-naming-style=snake_case
 [MASTER]
 disable=
       C0114, # missing-module-docstring
-      C0116, # missing-function-docstring
+      #C0116, # missing-function-docstring
       C0301, # line-too-long
