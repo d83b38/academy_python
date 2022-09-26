@@ -2,6 +2,11 @@
 # .pylintrc
 # .vscode
 .DS_Store
+practice_1
+lecture_2
+.vscode
+settings.json
+.pylintrc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -622,3 +622,4 @@ disable=
       C0114, # missing-module-docstring
       #C0116, # missing-function-docstring
       C0301, # line-too-long
+      W0702 # bare-except
