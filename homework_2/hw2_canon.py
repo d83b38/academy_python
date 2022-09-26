@@ -5,7 +5,7 @@ def read_csv_data(relative_url: str, encoding: str = 'utf8', delimiter: str = ';
     """ Чтение csv файла """
     with open(relative_url, 'r', newline='', encoding=encoding) as csvfile:
         data_reader = csv.reader(csvfile, delimiter=delimiter)
-        column_names = ['Индекс']  # в решении напрямую не использован, но коль делаем pandas на минималках..
+        column_names = ['Индекс']  # в решении напрямую не использован, но коль делаем pandas на минималках он есть
         column_names.extend(next(data_reader))  # считываем первую строку с названием колонок
         rows_count = 0
         data = []
