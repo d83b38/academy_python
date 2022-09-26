@@ -98,9 +98,10 @@ def department_report_to_csv(department_report: list[dict],
         data_writer = csv.DictWriter(output_file, column_names, delimiter=delimiter)
         data_writer.writeheader()
         data_writer.writerows(department_report)
+    print(f'Файл успешно сохранен в директории проекта по адресу {relative_url} \n')
 
 
-def menu(data):
+def menu(data: list[dict]) -> None:
     """ Ввод/вывод действий меню и исполнение команд"""
     option = ''
     options_map = {1: '1. Вывести иерархию департаментов и отделов',
@@ -130,7 +131,6 @@ def menu(data):
             department_report = get_department_report(data)
             department_report_to_csv(department_report, 'homework_2/department_report.csv')
     menu(data)  # рекурсивный вызов функции для запроса новых команд
-    return options_map[option]
 
 
 if __name__ == '__main__':
