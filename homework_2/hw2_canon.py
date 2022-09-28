@@ -27,12 +27,12 @@ def get_department_team_hierarchy(data: list[dict],
     department - департамент, team - отдел
     """
     department_set = set()
-    department_team_pair_list = []  # список кортежей пар департамент-отдел вида [(департамент, отдел)]
+    department_team_pair_list = set()  # список кортежей пар департамент-отдел вида [(департамент, отдел)]
     department_team_hierarchy = {}  # {название департамента: спикок отделов}
 
     for row in data:
         department_set.add(row[department_column_name])
-        department_team_pair_list.append((row[department_column_name], row[team_column_name]))
+        department_team_pair_list.add((row[department_column_name], row[team_column_name]))
 
     for department in department_set:
         team_list = []
@@ -64,7 +64,7 @@ def get_department_report(data: list[dict], department_column_name: str = 'Де�
     for department in department_set:
         department_info_dict = {}
         emp_list = []
-        for row in readed_data:
+        for row in data:
             if row[department_column_name] == department:
                 emp_list.append(row)
         salary_list = [int(row['Оклад']) for row in emp_list]
