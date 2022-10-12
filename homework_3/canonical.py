@@ -1,5 +1,5 @@
 class CountVectorizer:
-    """  f  """
+    """ Ω Docstring  about CountVectorizer na minimalkah Ω """
     def __init__(self):
         self._vocabulary = {}
         self._vocabulary_lenght = 0
