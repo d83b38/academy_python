@@ -4,8 +4,10 @@ from keyword import iskeyword
 
 class ColorizeMixin:
     """ Замена цвета текста по коду цвета """
-    def __repr__(self, repr_color_code):
-        return f'\033[1;{repr_color_code};20m'
+    repr_color_code = 32
+
+    def __str__(self):
+        return f'\033[1;{self.repr_color_code};20m{self.__repr__()}\033[0m'
 
 
 class JSONtoAttribute:
@@ -29,8 +31,6 @@ class JSONtoAttribute:
 
 class Advert(ColorizeMixin):
     """ Основной класс рекламной штукенции """
-    repr_color_code = 32  # green
-
     def __init__(self, mapping):
         self.__dict__.update(JSONtoAttribute(mapping).__dict__)
         if self.__dict__.get('price', False) < 0:
@@ -46,7 +46,7 @@ class Advert(ColorizeMixin):
         self.__dict__[key] = value
 
     def __repr__(self):
-        return super().__repr__(self.repr_color_code) + f'{self.title} | {self.price}₽'
+        return f'{self.title} | {self.price} ₽'
 
 
 if __name__ == '__main__':
@@ -77,13 +77,8 @@ if __name__ == '__main__':
     lesson_ad = Advert(lesson)
     print(lesson_ad.price)
 
-    print('\nПроверка 4: "в случае отстувия поля price в JSON-объеĸте возвращает 0"')
-    lesson_str = '{"title": "python"}'
-    lesson = json.loads(lesson_str)
-    lesson_ad = Advert(lesson)
-    print(lesson_ad.price)
-
-    print('\nПроверка 5: "написан ĸласс, эĸземпляры ĸоторого позволяют обращаться ĸ полям через точĸу: iphone_ad.price"')
+    print('\nПроверка 4: "написан ĸласс, эĸземпляры ĸоторого позволяют\
+        обращаться ĸ полям через точĸу: iphone_ad.price"')
     iphone_str = """
         {
         "title": "iPhone X",
@@ -98,22 +93,22 @@ if __name__ == '__main__':
     print(iphone_ad.price)
 
     """
-    print('\nПроверка 6: "эĸзмепляры ĸласса Advert инициалируются из словаря"')
+    print('\nПроверка 5: "эĸзмепляры ĸласса Advert инициалируются из словаря"')
     iphone_ad = Advert(iphone_str)
     """
 
     """
-    print('\nПроверка 7: "поле Advert.price выбрасывает исĸлючение при установĸе отрицательного значения"')
+    print('\nПроверка 6: "поле Advert.price выбрасывает исĸлючение при установĸе отрицательного значения"')
     yandex_dzen_str = '{"title": "yandex dzen", "price": "500000000"}'
     yandex_dzen = json.loads(lesson_str)
     yandex_dzen = Advert(lesson)
     yandex_dzen.price = -322
     """
 
-    print('\nПроверка 8: "выводится адрес при обращении ĸ атрибуту через точĸи: iphone_ad.location.address"')
+    print('\nПроверка 7: "выводится адрес при обращении ĸ атрибуту через точĸи: iphone_ad.location.address"')
     print(iphone_ad.location.address)
 
-    print('\nПроверка 9: "выводит ĸатегорию при обращении через точĸу: corgi.class_"')
+    print('\nПроверка 8: "выводит ĸатегорию при обращении через точĸу: corgi.class_"')
     corgi_str = """{
         "title": "Вельш-корги",
         "price": 1000,
@@ -126,5 +121,7 @@ if __name__ == '__main__':
     corgi_ad = Advert(corgi)
     print(corgi_ad.class_)
 
-    print('\nПроверка 10: "при выводе обяъвления в ĸонсоли print(corgi_ad) получаем надпись "Вельш-ĸорги | 1000 ₽" зеленым цветом "')
+    print('\nПроверка 9: "при выводе обяъвления в ĸонсоли \
+        print(corgi_ad) получаем надпись "Вельш-ĸорги | 1000 ₽" зеленым цветом "')
     print(corgi_ad)
+    print('\nПроверка 10: после вызова __repr__ с миксином далее цвет не накладывается')
